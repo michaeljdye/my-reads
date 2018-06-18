@@ -9,18 +9,21 @@ class SearchBooks extends Component {
     books: []
   };
 
-  updateQuery = query => {
+  searchBooks = query => {
     this.setState({ query });
+
+    if (query) {
+      BooksAPI.search(query)
+        .then(books => this.setState({ books }))
+        .catch(err => console.log('error', err));
+    }
   };
 
   render() {
-    const { query } = this.state;
-
-    if (query) {
-      BooksAPI.search(query).then(books => this.setState({ books }));
-    } else {
-      BooksAPI.getAll().then(books => this.setState({ books }));
-    }
+    const { query, books } = this.state;
+    const searchContent = this.state.books.map((book, index) => (
+      <Book key={index} book={book} updateBook={this.props.updateBook} />
+    ));
 
     return (
       <React.Fragment>
@@ -31,22 +34,16 @@ class SearchBooks extends Component {
             </Link>
             <div className="search-books-input-wrapper">
               <input
-                onChange={e => this.updateQuery(e.target.value)}
+                onChange={e => this.searchBooks(e.target.value)}
                 type="text"
-                value={this.state.query}
+                value={query}
                 placeholder="Search by title or author"
               />
             </div>
           </div>
           <div className="search-books-results">
             <ol className="books-grid">
-              {this.state.books.map((book, index) => (
-                <Book
-                  key={index}
-                  book={book}
-                  updateBook={this.props.updateBook}
-                />
-              ))}
+              {query && !books.error && searchContent}
             </ol>
           </div>
         </div>

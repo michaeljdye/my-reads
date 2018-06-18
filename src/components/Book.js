@@ -8,6 +8,18 @@ class Book extends Component {
 
   render() {
     const { book } = this.props;
+    const bookCover = this.props.book.imageLinks ? (
+      <div
+        className="book-cover"
+        style={{
+          width: 128,
+          height: 193,
+          backgroundImage: `url("${this.props.book.imageLinks.thumbnail}")`
+        }}
+      />
+    ) : (
+      ''
+    );
 
     return (
       <React.Fragment>
@@ -15,14 +27,7 @@ class Book extends Component {
           <div>
             <div className="book">
               <div className="book-top">
-                <div
-                  className="book-cover"
-                  style={{
-                    width: 128,
-                    height: 193,
-                    backgroundImage: `url("${book.imageLinks.thumbnail}")`
-                  }}
-                />
+                {bookCover}
                 <div className="book-shelf-changer">
                   <select
                     onChange={e => this.updateShelf(e.target.value, book)}
@@ -52,7 +57,7 @@ class Book extends Component {
                 </div>
               </div>
               <div className="book-title">{book.title}</div>
-              <div className="book-authors">{book.authors}</div>
+              <div className="book-authors">{book.authors || null}</div>
             </div>
           </div>
         </li>
