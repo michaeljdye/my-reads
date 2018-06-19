@@ -27,7 +27,7 @@ class BooksApp extends React.Component {
   }
 
   updateBook = (shelf, currentBook) => {
-    BooksAPI.update(currentBook, shelf);
+    BooksAPI.update(currentBook, shelf).then(data => console.log(data));
     currentBook.shelf = shelf;
     this.setState(state => ({
       books: state.books
@@ -37,7 +37,6 @@ class BooksApp extends React.Component {
   };
 
   render() {
-    console.log(this.state.books);
     return (
       <div className="app">
         <Route
@@ -55,8 +54,8 @@ class BooksApp extends React.Component {
               </div>
               <div className="list-books-content">
                 <div>
-                  {this.state.bookshelves.map(bookshelf => (
-                    <Bookshelf bookshelf={bookshelf.title}>
+                  {this.state.bookshelves.map((bookshelf, index) => (
+                    <Bookshelf key={index} bookshelf={bookshelf.title}>
                       {this.state.books.map((book, index) => {
                         if (
                           book.shelf.toLowerCase() ===

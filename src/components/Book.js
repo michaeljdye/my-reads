@@ -14,7 +14,7 @@ class Book extends Component {
         style={{
           width: 128,
           height: 193,
-          backgroundImage: `url("${this.props.book.imageLinks.thumbnail}")`
+          backgroundImage: `url("${book.imageLinks.thumbnail}")`
         }}
       />
     ) : (
@@ -31,28 +31,15 @@ class Book extends Component {
                 <div className="book-shelf-changer">
                   <select
                     onChange={e => this.updateShelf(e.target.value, book)}
+                    defaultValue={book.shelf}
                   >
                     <option value="move" disabled>
                       Move to...
                     </option>
-                    <option
-                      value="currentlyReading"
-                      selected={book.shelf === 'currentlyReading'}
-                    >
-                      Currently Reading
-                    </option>
-                    <option
-                      value="wantToRead"
-                      selected={book.shelf === 'wantToRead'}
-                    >
-                      Want to Read
-                    </option>
-                    <option value="read" selected={book.shelf === 'read'}>
-                      Read
-                    </option>
-                    <option value="none" selected={book.shelf === 'none'}>
-                      None
-                    </option>
+                    <option value="currentlyReading">Currently Reading</option>
+                    <option value="wantToRead">Want to Read</option>
+                    <option value="read">Read</option>
+                    <option value="none">None</option>
                   </select>
                 </div>
               </div>

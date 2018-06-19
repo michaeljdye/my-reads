@@ -25,6 +25,8 @@ class SearchBooks extends Component {
       <Book key={index} book={book} updateBook={this.props.updateBook} />
     ));
 
+    console.log(books);
+
     return (
       <React.Fragment>
         <div className="search-books">
