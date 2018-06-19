@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Book extends Component {
+  static propTypes = {
+    book: PropTypes.object.isRequired,
+    updateBook: PropTypes.func.isRequired
+  };
+
   updateShelf = (value, book) => {
     const shelf = value;
     this.props.updateBook(shelf, book);
@@ -8,7 +14,7 @@ class Book extends Component {
 
   render() {
     const { book } = this.props;
-    const bookCover = this.props.book.imageLinks ? (
+    const bookCover = book.imageLinks ? (
       <div
         className="book-cover"
         style={{
@@ -31,7 +37,7 @@ class Book extends Component {
                 <div className="book-shelf-changer">
                   <select
                     onChange={e => this.updateShelf(e.target.value, book)}
-                    defaultValue={book.shelf}
+                    defaultValue={book.shelf || 'move'}
                   >
                     <option value="move" disabled>
                       Move to...

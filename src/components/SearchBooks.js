@@ -9,12 +9,32 @@ class SearchBooks extends Component {
     books: []
   };
 
+  /**
+   * Credit to Sai Gowtham for code example
+   *  @link https://codeburst.io/comparison-of-two-arrays-using-javascript-3251d03877fe
+   */
+
+  compareArrays(arr1, arr2) {
+    arr1.forEach(e1 =>
+      arr2.forEach(e2 => {
+        if (e1.id === e2.id) {
+          e1.shelf = e2.shelf;
+        }
+      })
+    );
+
+    return arr1;
+  }
+
   searchBooks = query => {
     this.setState({ query });
 
     if (query) {
       BooksAPI.search(query)
-        .then(books => this.setState({ books }))
+        .then(books => {
+          books = this.compareArrays(books, this.props.shelvedBooks);
+          this.setState({ books });
+        })
         .catch(err => console.log('error', err));
     }
   };
