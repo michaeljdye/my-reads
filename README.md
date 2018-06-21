@@ -10,7 +10,7 @@ If it's your first time using the app, start by adding some new books to your bo
     2. Enter a query into the search bar. (Be sure to only search queries included in SEARCH_TERMS.md.)
     3. Click the down arrow next to the book you want to read.
     4. Select the appropriate option from the dropdown.
-    5. Selecting "currently reading", "want to read", or "read" will add the book to the appropriate shelf. Selecting "none" will remove the book for your bookshelf.
+    5. Selecting "currently reading", "want to read", or "read" will add the book to the corresponding shelf. Selecting "none" will remove the book from your bookshelf.
 
 ## Getting Started
 
