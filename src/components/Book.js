@@ -7,9 +7,12 @@ class Book extends Component {
     updateBook: PropTypes.func.isRequired
   };
 
-  updateShelf = (value, book) => {
-    const shelf = value;
+  updateShelf = (shelf, book) => {
     this.props.updateBook(shelf, book);
+  };
+
+  updateRating = (rating, book) => {
+    this.props.updateRating(rating, book);
   };
 
   render() {
@@ -37,7 +40,7 @@ class Book extends Component {
                 <div className="book-shelf-changer">
                   <select
                     onChange={e => this.updateShelf(e.target.value, book)}
-                    defaultValue={book.shelf || 'move'}
+                    defaultValue={book.shelf || 'none'}
                   >
                     <option value="move" disabled>
                       Move to...
@@ -51,6 +54,14 @@ class Book extends Component {
               </div>
               <div className="book-title">{book.title}</div>
               <div className="book-authors">{book.authors || null}</div>
+              {!book.shelf ? (
+                <button
+                  className="btn-primary"
+                  onClick={() => window.open(book.previewLink)}
+                >
+                  Preview
+                </button>
+              ) : null}
             </div>
           </div>
         </li>

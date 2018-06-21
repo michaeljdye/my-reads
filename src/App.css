@@ -17,6 +17,19 @@ body,
   --brand-primary: #621d9e;
 }
 
+.btn-primary {
+  background: var(--brand-primary);
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: #511783;
+  cursor: pointer;
+  transform: scale(1.02);
+}
+
 /* main page */
 
 .list-books-title {
