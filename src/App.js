@@ -28,14 +28,12 @@ class BooksApp extends React.Component {
 
   updateBook = (shelf, book) => {
     const currentBook = book;
+    currentBook.shelf = shelf;
     BooksAPI.update(currentBook, shelf);
     this.setState(state => ({
-      books: state.books.map(book => {
-        if (book.title === currentBook.title) {
-          book.shelf = shelf;
-        }
-        return book;
-      })
+      books: state.books
+        .filter(book => book.title !== currentBook.title)
+        .concat([currentBook])
     }));
   };
 
@@ -76,6 +74,7 @@ class BooksApp extends React.Component {
                             <Book
                               key={index}
                               book={book}
+                              shelvedBooks={this.state.books}
                               updateBook={this.updateBook}
                             />
                           );
