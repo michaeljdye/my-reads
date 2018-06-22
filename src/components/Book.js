@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Book extends Component {
   static propTypes = {
@@ -62,6 +63,9 @@ class Book extends Component {
                   Preview
                 </button>
               ) : null}
+              <Link to={`/book?id=${book.id}`}>
+                <button>View Book</button>
+              </Link>
             </div>
           </div>
         </li>

@@ -5,6 +5,7 @@ import Book from './components/Book';
 import Bookshelf from './components/Bookshelf';
 import React from 'react';
 import SearchBooks from './components/SearchBooks';
+import BookAbout from './components/BookAbout';
 
 class BooksApp extends React.Component {
   state = {
@@ -40,6 +41,7 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
+        <Route exact path="/book" render={() => <BookAbout />} />
         <Route
           exact
           path="/search"
