@@ -55,14 +55,6 @@ class Book extends Component {
               </div>
               <div className="book-title">{book.title}</div>
               <div className="book-authors">{book.authors || null}</div>
-              {!book.shelf ? (
-                <button
-                  className="btn-primary"
-                  onClick={() => window.open(book.previewLink)}
-                >
-                  Preview
-                </button>
-              ) : null}
               <Link to={`/book?id=${book.id}`}>
                 <button>View Book</button>
               </Link>
