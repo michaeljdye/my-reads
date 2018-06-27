@@ -3,16 +3,26 @@ import queryString from 'query-string';
 
 class BookAbout extends Component {
   state = {
+    books: [],
     book: {}
   };
 
   componentDidMount() {
+    const storedBooks = localStorage.getItem('books');
+    let books = [];
+
+    if (!storedBooks) {
+      localStorage.setItem('books', JSON.stringify(this.props.books));
+      books = this.props.books;
+    } else {
+      books = JSON.parse(storedBooks);
+    }
+
     const query = queryString.parse(window.location.search);
     const id = query.id;
-    const bookArray = this.props.books.filter(book => book.id === id);
+    const bookArray = books.filter(book => book.id === id);
     const book = bookArray[0];
     this.setState({ book });
-    console.log(book);
   }
 
   render() {
@@ -30,20 +40,27 @@ class BookAbout extends Component {
 
     return (
       <React.Fragment>
-        {bookImage}
-        <p>{book.ratingsCount ? `Rating: ${book.ratingsCount}` : null}</p>
-        <p>{book.pageCount ? `Page count: ${book.pageCount}` : null}</p>
-        <h1>{book.title}</h1>
-        <h1>{book.title}</h1>
-        <h2>{book.subtitle}</h2>
-        <p>{book.publisher}</p>
-        <p>{book.description ? `Rating: ${book.description}` : null}</p>
-        <button
-          className="btn-primary"
-          onClick={() => window.open(book.previewLink)}
-        >
-          Preview
-        </button>
+        <div className="book-about-container">
+          {bookImage}
+          <div className="book-about-content">
+            <h1 className="book-about-title">{book.title}</h1>
+            <h2 className="book-about-subtitle">{book.subtitle}</h2>
+            <p>
+              <em>{book.publisher}</em>
+            </p>
+            <p>{book.pageCount ? `Page count: ${book.pageCount}` : null}</p>
+            <p>{book.ratingsCount ? `Rating: ${book.ratingsCount}` : null}</p>
+            <p className="book-about-description">
+              {book.description ? book.description : null}
+            </p>
+            <button
+              className="btn-primary btn-primary-large"
+              onClick={() => window.open(book.previewLink)}
+            >
+              Preview
+            </button>
+          </div>
+        </div>
       </React.Fragment>
     );
   }

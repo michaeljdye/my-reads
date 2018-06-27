@@ -80,7 +80,7 @@ class BooksApp extends React.Component {
                             <Book
                               key={index}
                               book={book}
-                              shelvedBooks={this.state.books}
+                              books={this.state.books}
                               updateBook={this.updateBook}
                             />
                           );
