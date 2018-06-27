@@ -10,6 +10,7 @@ class Book extends Component {
 
   updateShelf = (shelf, book) => {
     this.props.updateBook(shelf, book);
+    localStorage.removeItem('books');
   };
 
   updateRating = (rating, book) => {
@@ -55,9 +56,11 @@ class Book extends Component {
               </div>
               <div className="book-title">{book.title}</div>
               <div className="book-authors">{book.authors || null}</div>
-              <Link to={`/book?id=${book.id}`}>
-                <button>View Book</button>
-              </Link>
+              {book.shelf && (
+                <Link to={`/book?id=${book.id}`}>
+                  <button className="btn-primary">View Book</button>
+                </Link>
+              )}
             </div>
           </div>
         </li>

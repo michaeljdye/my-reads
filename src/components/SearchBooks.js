@@ -11,7 +11,7 @@ class SearchBooks extends Component {
   };
 
   static propTypes = {
-    shelvedBooks: PropTypes.object.isRequired,
+    shelvedBooks: PropTypes.array.isRequired,
     updateBook: PropTypes.func.isRequired
   };
 
