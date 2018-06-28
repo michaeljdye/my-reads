@@ -217,3 +217,8 @@ body,
 .book-about-subtitle {
   margin: 0 0 10px 0;
 }
+
+.book-star-rating i {
+  padding: 0;
+  margin-top: 10px;
+}

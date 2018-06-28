@@ -3,6 +3,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class Book extends Component {
+  state = {
+    firstStarClicked: false,
+    secondStarClicked: false,
+    thirdStarClicked: false,
+    fourthStarClicked: false
+  };
+
   static propTypes = {
     book: PropTypes.object.isRequired,
     updateBook: PropTypes.func.isRequired
@@ -13,8 +20,21 @@ class Book extends Component {
     localStorage.removeItem('books');
   };
 
-  updateRating = (rating, book) => {
-    this.props.updateRating(rating, book);
+  updateRating = num => {
+    switch (num) {
+      case 4:
+        this.setState(state => ({
+          fourthStarClicked: !state.fourthStarClicked
+        }));
+      case 3:
+        this.setState(state => ({ thirdStarClicked: !state.thirdStarClicked }));
+      case 2:
+        this.setState(state => ({
+          secondStarClicked: !state.secondStarClicked
+        }));
+      case 1:
+        this.setState(state => ({ firstStarClicked: !state.firstStarClicked }));
+    }
   };
 
   render() {
@@ -53,6 +73,32 @@ class Book extends Component {
                     <option value="none">None</option>
                   </select>
                 </div>
+              </div>
+              <div className="book-star-rating">
+                <i
+                  onClick={e => this.updateRating(1)}
+                  className={
+                    (this.state.firstStarClicked ? 'fas ' : 'far ') + 'fa-star'
+                  }
+                />
+                <i
+                  onClick={e => this.updateRating(2)}
+                  className={
+                    (this.state.secondStarClicked ? 'fas ' : 'far ') + 'fa-star'
+                  }
+                />
+                <i
+                  onClick={e => this.updateRating(3)}
+                  className={
+                    (this.state.thirdStarClicked ? 'fas ' : 'far ') + 'fa-star'
+                  }
+                />
+                <i
+                  onClick={e => this.updateRating(4)}
+                  className={
+                    (this.state.fourthStarClicked ? 'fas ' : 'far ') + 'fa-star'
+                  }
+                />
               </div>
               <div className="book-title">{book.title}</div>
               <div className="book-authors">{book.authors || null}</div>
