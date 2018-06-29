@@ -3,15 +3,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class Book extends Component {
-  state = {
-    starClicks: [
-      { firstStarClicked: false },
-      { secondStarClicked: false },
-      { thirdStarClicked: false },
-      { fourthStarClicked: false }
-    ]
-  };
-
   static propTypes = {
     book: PropTypes.object.isRequired,
     updateBook: PropTypes.func.isRequired
