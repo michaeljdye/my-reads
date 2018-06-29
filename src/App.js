@@ -20,7 +20,8 @@ class BooksApp extends React.Component {
         title: 'Read'
       }
     ],
-    books: []
+    books: [],
+    bulkMove: false
   };
 
   componentDidMount() {
@@ -35,6 +36,12 @@ class BooksApp extends React.Component {
       books: state.books
         .filter(book => book.title !== currentBook.title)
         .concat([currentBook])
+    }));
+  };
+
+  moveMultiple = () => {
+    this.setState(state => ({
+      bulkMove: !state.bulkMove
     }));
   };
 
@@ -67,7 +74,11 @@ class BooksApp extends React.Component {
               <div className="list-books-content">
                 <div>
                   {this.state.bookshelves.map((bookshelf, index) => (
-                    <Bookshelf key={index} bookshelf={bookshelf.title}>
+                    <Bookshelf
+                      key={index}
+                      bookshelf={bookshelf.title}
+                      moveMultiple={this.moveMultiple}
+                    >
                       {this.state.books.map((book, index) => {
                         if (
                           book.shelf.toLowerCase() ===
@@ -82,6 +93,7 @@ class BooksApp extends React.Component {
                               book={book}
                               books={this.state.books}
                               updateBook={this.updateBook}
+                              bulkMove={this.state.bulkMove}
                             />
                           );
                         }

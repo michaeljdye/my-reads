@@ -7,7 +7,7 @@ const Bookshelf = props => {
     children: PropTypes.object.isRequired
   };
 
-  const { bookshelf, children } = props;
+  const { bookshelf, children, moveMultiple } = props;
   return (
     <React.Fragment>
       <div className="bookshelf">
@@ -15,6 +15,7 @@ const Bookshelf = props => {
         <div className="bookshelf-books">
           <ol className="books-grid">{children}</ol>
         </div>
+        <button onClick={moveMultiple}>Bulk Move</button>
       </div>
     </React.Fragment>
   );

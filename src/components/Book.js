@@ -57,6 +57,10 @@ class Book extends Component {
                   <button className="btn-primary">View Book</button>
                 </Link>
               )}
+
+              {this.props.bulkMove && (
+                <input type="checkbox" name="move" id="move" />
+              )}
             </div>
           </div>
         </li>
