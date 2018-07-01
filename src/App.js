@@ -21,7 +21,8 @@ class BooksApp extends React.Component {
       }
     ],
     books: [],
-    bulkMove: false
+    bulkMove: false,
+    checkedBooks: []
   };
 
   componentDidMount() {
@@ -44,6 +45,19 @@ class BooksApp extends React.Component {
       bulkMove: !state.bulkMove
     }));
   };
+
+  updateChecked = id => {
+    const book = this.state.books.filter(book => book.id === id);
+    book[0].checked = true;
+    const checkedBooks = [...book, ...this.state.checkedBooks];
+    this.setState({ checkedBooks });
+  };
+
+  updateAllShelves = value => {
+    this.state.checkedBooks.map(book => this.updateBook(value, book))
+    this.setState({checkedBooks: []})
+    this.setState({bulkMove: false});
+  }
 
   render() {
     return (
@@ -78,6 +92,8 @@ class BooksApp extends React.Component {
                       key={index}
                       bookshelf={bookshelf.title}
                       moveMultiple={this.moveMultiple}
+                      bulkMove={this.state.bulkMove}
+                      updateAllShelves={this.updateAllShelves}
                     >
                       {this.state.books.map((book, index) => {
                         if (
@@ -93,6 +109,7 @@ class BooksApp extends React.Component {
                               book={book}
                               books={this.state.books}
                               updateBook={this.updateBook}
+                              updateChecked={this.updateChecked}
                               bulkMove={this.state.bulkMove}
                             />
                           );

@@ -59,7 +59,12 @@ class Book extends Component {
               )}
 
               {this.props.bulkMove && (
-                <input type="checkbox" name="move" id="move" />
+                <input
+                  type="checkbox"
+                  name="move"
+                  id="move"
+                  onChange={() => this.props.updateChecked(book.id)}
+                />
               )}
             </div>
           </div>
