@@ -52,11 +52,12 @@ class Book extends Component {
               </div>
               <div className="book-title">{book.title}</div>
               <div className="book-authors">{book.authors || null}</div>
-              {book.shelf && (
-                <Link to={`/book?id=${book.id}`}>
-                  <button className="btn-primary">View Book</button>
-                </Link>
-              )}
+              {book.shelf &&
+                book.shelf !== 'none' && (
+                  <Link to={`/book?id=${book.id}`}>
+                    <button className="btn-primary">View Book</button>
+                  </Link>
+                )}
 
               {this.props.bulkMove && (
                 <input
@@ -64,6 +65,7 @@ class Book extends Component {
                   name="move"
                   id="move"
                   onChange={() => this.props.updateChecked(book.id)}
+                  className="book-checkbox"
                 />
               )}
             </div>

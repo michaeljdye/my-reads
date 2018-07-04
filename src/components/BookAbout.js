@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
+import { Link } from 'react-router-dom';
 
 class BookAbout extends Component {
   state = {
@@ -40,6 +41,9 @@ class BookAbout extends Component {
 
     return (
       <React.Fragment>
+        <Link className="close-search" to="/">
+          Close
+        </Link>
         <div className="book-about-container">
           {bookImage}
           <div className="book-about-content">
