@@ -1,13 +1,21 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const Bookshelf = props => {
+const Bookshelf = ({
+  bookshelf,
+  children,
+  moveMultiple,
+  bulkMove,
+  updateAllShelves
+}) => {
   this.propTypes = {
     bookshelf: PropTypes.object.isRequired,
-    children: PropTypes.object.isRequired
+    children: PropTypes.object.isRequired,
+    moveMultiple: PropTypes.func.isRequired,
+    bulkMove: PropTypes.boolean,
+    updateAllShelves: PropTypes.func.isRequired
   };
 
-  const { bookshelf, children, moveMultiple, bulkMove } = props;
   return (
     <React.Fragment>
       <div className="bookshelf">
@@ -18,7 +26,7 @@ const Bookshelf = props => {
         {bulkMove && (
           <select
             className="bookshelf-bulk-select"
-            onChange={e => props.updateAllShelves(e.target.value)}
+            onChange={e => updateAllShelves(e.target.value)}
             defaultValue="none"
           >
             <option value="move" disabled>

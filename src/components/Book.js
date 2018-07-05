@@ -1,20 +1,28 @@
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 class Book extends Component {
   static propTypes = {
     book: PropTypes.object.isRequired,
-    updateBook: PropTypes.func.isRequired
+    updateBook: PropTypes.func.isRequired,
+    bulkMove: PropTypes.boolean,
+    updateChecked: PropTypes.func.isRequired
   };
 
+  /**
+   * @description Updates selected book's shelf property
+   * @param { string } shelf - the new shelf the book should be located on
+   * @param { object } book  - the book that needs to be updated
+   */
   updateShelf = (shelf, book) => {
     this.props.updateBook(shelf, book);
     localStorage.removeItem('books');
   };
 
   render() {
-    const { book } = this.props;
+    const { book, bulkMove, updateChecked } = this.props;
+
     const bookCover = book.imageLinks ? (
       <div
         className="book-cover"
@@ -59,12 +67,12 @@ class Book extends Component {
                   </Link>
                 )}
 
-              {this.props.bulkMove && (
+              {bulkMove && (
                 <input
                   type="checkbox"
                   name="move"
                   id="move"
-                  onChange={() => this.props.updateChecked(book.id)}
+                  onChange={() => updateChecked(book.id)}
                   className="book-checkbox"
                 />
               )}

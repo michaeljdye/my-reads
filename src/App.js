@@ -2,10 +2,10 @@ import './App.css';
 import { Route, Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import Book from './components/Book';
+import BookAbout from './components/BookAbout';
 import Bookshelf from './components/Bookshelf';
 import React from 'react';
 import SearchBooks from './components/SearchBooks';
-import BookAbout from './components/BookAbout';
 
 class BooksApp extends React.Component {
   state = {
@@ -29,6 +29,11 @@ class BooksApp extends React.Component {
     BooksAPI.getAll().then(books => this.setState({ books }));
   }
 
+  /**
+   * @description Updates selected book's shelf property
+   * @param { string } shelf - the new shelf the book should be located on
+   * @param { object } book - the book that needs to be updated
+   */
   updateBook = (shelf, book) => {
     const currentBook = book;
     currentBook.shelf = shelf;
@@ -40,12 +45,19 @@ class BooksApp extends React.Component {
     }));
   };
 
+  /**
+   * @description Toggles state of bulkMove
+   */
   moveMultiple = () => {
     this.setState(state => ({
       bulkMove: !state.bulkMove
     }));
   };
 
+  /**
+   * @description Adds checked books to checkedBooks array
+   * @param { string } id - the id of the book that was checked
+   */
   updateChecked = id => {
     const book = this.state.books.filter(book => book.id === id);
     book[0].checked = true;
@@ -53,11 +65,14 @@ class BooksApp extends React.Component {
     this.setState({ checkedBooks });
   };
 
+  /**
+   * @description Updates all selected book's shelf property with new shelf value
+   * @param { string } value - the name of the new shelf the books belong on
+   */
   updateAllShelves = value => {
-    this.state.checkedBooks.map(book => this.updateBook(value, book))
-    this.setState({checkedBooks: []})
-    this.setState({bulkMove: false});
-  }
+    this.state.checkedBooks.map(book => this.updateBook(value, book));
+    this.setState({ checkedBooks: [], bulkMove: false });
+  };
 
   render() {
     return (
@@ -107,7 +122,6 @@ class BooksApp extends React.Component {
                             <Book
                               key={index}
                               book={book}
-                              books={this.state.books}
                               updateBook={this.updateBook}
                               updateChecked={this.updateChecked}
                               bulkMove={this.state.bulkMove}

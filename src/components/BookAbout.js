@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import queryString from 'query-string';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import queryString from 'query-string';
+import React, { Component } from 'react';
 
 class BookAbout extends Component {
   state = {
@@ -8,6 +9,14 @@ class BookAbout extends Component {
     book: {}
   };
 
+  static propTypes = {
+    books: PropTypes.object.isRequired
+  };
+
+  /**
+   * @description Retrieves book from local storage (if available),
+   * and sets book state to book matching id found in URL query string.
+   */
   componentDidMount() {
     const storedBooks = localStorage.getItem('books');
     let books = [];

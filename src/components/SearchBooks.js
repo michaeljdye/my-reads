@@ -16,6 +16,8 @@ class SearchBooks extends Component {
   };
 
   /**
+   * @description Compares searched books with shelved books
+   * and sets shelf property of any matching books
    * Credit to Sai Gowtham for code example
    *  @link https://codeburst.io/comparison-of-two-arrays-using-javascript-3251d03877fe
    */
@@ -32,13 +34,18 @@ class SearchBooks extends Component {
     return arr1;
   }
 
+  /**
+   * @description Retrieves books matching query
+   * @param { string } query - search query
+   */
   searchBooks = query => {
+    const { shelvedBooks } = this.props;
     this.setState({ query });
 
     if (query) {
       BooksAPI.search(query)
         .then(books => {
-          books = this.compareArrays(books, this.props.shelvedBooks);
+          books = this.compareArrays(books, shelvedBooks);
           this.setState({ books });
         })
         .catch(err => console.log('error', err));
@@ -47,11 +54,10 @@ class SearchBooks extends Component {
 
   render() {
     const { query, books } = this.state;
+    const { updateBook } = this.props;
     const searchContent = this.state.books.map((book, index) => (
-      <Book key={index} book={book} updateBook={this.props.updateBook} />
+      <Book key={index} book={book} updateBook={updateBook} />
     ));
-
-    console.log(books);
 
     return (
       <React.Fragment>
