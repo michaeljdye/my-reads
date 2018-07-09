@@ -6,8 +6,8 @@ class Book extends Component {
   static propTypes = {
     book: PropTypes.object.isRequired,
     updateBook: PropTypes.func.isRequired,
-    bulkMove: PropTypes.boolean,
-    updateChecked: PropTypes.func.isRequired
+    bulkMove: PropTypes.bool,
+    updateChecked: PropTypes.func
   };
 
   /**

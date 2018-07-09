@@ -45,8 +45,12 @@ class SearchBooks extends Component {
     if (query) {
       BooksAPI.search(query)
         .then(books => {
-          books = this.compareArrays(books, shelvedBooks);
-          this.setState({ books });
+          if (books.error) {
+            this.setState({ books: {} });
+          } else {
+            books = this.compareArrays(books, shelvedBooks);
+            this.setState({ books });
+          }
         })
         .catch(err => console.log('error', err));
     }
@@ -55,9 +59,13 @@ class SearchBooks extends Component {
   render() {
     const { query, books } = this.state;
     const { updateBook } = this.props;
-    const searchContent = this.state.books.map((book, index) => (
-      <Book key={index} book={book} updateBook={updateBook} />
-    ));
+    let searchContent = null;
+
+    if (Object.keys(books).length !== 0 && books.constructor !== Object) {
+      searchContent = this.state.books.map((book, index) => (
+        <Book key={index} book={book} updateBook={updateBook} />
+      ));
+    }
 
     return (
       <React.Fragment>
