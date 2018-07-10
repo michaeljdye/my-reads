@@ -1,11 +1,11 @@
-import './App.css';
-import { Route, Link } from 'react-router-dom';
+import React from 'react';
+import { Switch, Route, Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import Book from './components/Book';
 import BookAbout from './components/BookAbout';
 import Bookshelf from './components/Bookshelf';
-import React from 'react';
 import SearchBooks from './components/SearchBooks';
+import './App.css';
 
 class BooksApp extends React.Component {
   state = {
@@ -43,6 +43,7 @@ class BooksApp extends React.Component {
         .filter(book => book.title !== currentBook.title)
         .concat([currentBook])
     }));
+    localStorage.removeItem('books');
   };
 
   /**
@@ -77,69 +78,71 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        <Route
-          exact
-          path="/book"
-          render={() => <BookAbout books={this.state.books} />}
-        />
-        <Route
-          exact
-          path="/search"
-          render={() => (
-            <SearchBooks
-              shelvedBooks={this.state.books}
-              updateBook={this.updateBook}
-            />
-          )}
-        />
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <div className="list-books">
-              <div className="list-books-title">
-                <h1>MyReads</h1>
-              </div>
-              <div className="list-books-content">
-                <div>
-                  {this.state.bookshelves.map((bookshelf, index) => (
-                    <Bookshelf
-                      key={index}
-                      bookshelf={bookshelf.title}
-                      moveMultiple={this.moveMultiple}
-                      bulkMove={this.state.bulkMove}
-                      updateAllShelves={this.updateAllShelves}
-                    >
-                      {this.state.books.map((book, index) => {
-                        if (
-                          book.shelf.toLowerCase() ===
-                          bookshelf.title
-                            .split(' ')
-                            .join('')
-                            .toLowerCase()
-                        ) {
-                          return (
-                            <Book
-                              key={index}
-                              book={book}
-                              updateBook={this.updateBook}
-                              updateChecked={this.updateChecked}
-                              bulkMove={this.state.bulkMove}
-                            />
-                          );
-                        }
-                        return null;
-                      })}
-                    </Bookshelf>
-                  ))}
+        <Switch>
+          <Route
+            exact
+            path="/book"
+            render={() => <BookAbout books={this.state.books} />}
+          />
+          <Route
+            exact
+            path="/search"
+            render={() => (
+              <SearchBooks
+                shelvedBooks={this.state.books}
+                updateBook={this.updateBook}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <div className="list-books">
+                <div className="list-books-title">
+                  <h1>MyReads</h1>
+                </div>
+                <div className="list-books-content">
+                  <div>
+                    {this.state.bookshelves.map((bookshelf, index) => (
+                      <Bookshelf
+                        key={index}
+                        bookshelf={bookshelf.title}
+                        moveMultiple={this.moveMultiple}
+                        bulkMove={this.state.bulkMove}
+                        updateAllShelves={this.updateAllShelves}
+                      >
+                        {this.state.books.map((book, index) => {
+                          if (
+                            book.shelf.toLowerCase() ===
+                            bookshelf.title
+                              .split(' ')
+                              .join('')
+                              .toLowerCase()
+                          ) {
+                            return (
+                              <Book
+                                key={index}
+                                book={book}
+                                updateBook={this.updateBook}
+                                updateChecked={this.updateChecked}
+                                bulkMove={this.state.bulkMove}
+                              />
+                            );
+                          }
+                          return null;
+                        })}
+                      </Bookshelf>
+                    ))}
+                  </div>
+                </div>
+                <div className="open-search">
+                  <Link to="/search">Add a book</Link>
                 </div>
               </div>
-              <div className="open-search">
-                <Link to="/search">Add a book</Link>
-              </div>
-            </div>
-          )}
-        />
+            )}
+          />
+        </Switch>
       </div>
     );
   }
