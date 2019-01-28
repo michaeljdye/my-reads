@@ -3,13 +3,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Book = ({ book, bulkMove, updateChecked, updateBook }) => {
-  this.propTypes = {
-    book: PropTypes.object.isRequired,
-    updateBook: PropTypes.func.isRequired,
-    bulkMove: PropTypes.bool,
-    updateChecked: PropTypes.func
-  };
-
   const bookCover = book.imageLinks ? (
     <div
       className="book-cover"
@@ -47,12 +40,11 @@ const Book = ({ book, bulkMove, updateChecked, updateBook }) => {
             </div>
             <div className="book-title">{book.title}</div>
             <div className="book-authors">{book.authors || null}</div>
-            {book.shelf &&
-              book.shelf !== 'none' && (
-                <Link to={`/book?id=${book.id}`}>
-                  <button className="btn-primary">View Book</button>
-                </Link>
-              )}
+            {book.shelf && book.shelf !== 'none' && (
+              <Link to={`/book?id=${book.id}`}>
+                <button className="btn-primary">View Book</button>
+              </Link>
+            )}
 
             {bulkMove && (
               <input
@@ -68,6 +60,13 @@ const Book = ({ book, bulkMove, updateChecked, updateBook }) => {
       </li>
     </React.Fragment>
   );
+};
+
+Book.propTypes = {
+  book: PropTypes.object.isRequired,
+  updateBook: PropTypes.func.isRequired,
+  bulkMove: PropTypes.bool,
+  updateChecked: PropTypes.func
 };
 
 export default Book;

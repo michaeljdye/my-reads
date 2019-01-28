@@ -8,14 +8,6 @@ const Bookshelf = ({
   bulkMove,
   updateAllShelves
 }) => {
-  this.propTypes = {
-    bookshelf: PropTypes.object.isRequired,
-    children: PropTypes.object.isRequired,
-    moveMultiple: PropTypes.func.isRequired,
-    bulkMove: PropTypes.boolean,
-    updateAllShelves: PropTypes.func.isRequired
-  };
-
   return (
     <React.Fragment>
       <div className="bookshelf">
@@ -44,6 +36,14 @@ const Bookshelf = ({
       </div>
     </React.Fragment>
   );
+};
+
+Bookshelf.propTypes = {
+  bookshelf: PropTypes.object.isRequired,
+  children: PropTypes.object.isRequired,
+  moveMultiple: PropTypes.func.isRequired,
+  bulkMove: PropTypes.boolean,
+  updateAllShelves: PropTypes.func.isRequired
 };
 
 export default Bookshelf;
