@@ -4,8 +4,8 @@
   "builds": [
     {
       "src": "package.json",
-      "use": "@now/static-build",
-      "config": { "distDir": "www" }
+      "use": "@now/node",
+      "config": { "distDir": "build" }
     }
   ]
 }
