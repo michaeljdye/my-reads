@@ -11,16 +11,8 @@
     "react-scripts": "^2.1.3"
   },
   "scripts": {
-<<<<<<< HEAD
-    "start": "My Reads",
-    "now-build": "react-scripts build && mv build dist",
-||||||| 6828a13... fix: reconfigure deploy
     "start": "react-scripts start",
     "now-build": "react-scripts build && mv build dist",
-=======
-    "start": "react-scripts start",
-    "now-start": "serve --single ./build",
->>>>>>> parent of 6828a13... fix: reconfigure deploy
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
